@@ -34,7 +34,7 @@ const Navbar = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-
+        console.log(response.data.user.role);
         setUserRole(response.data.user.role);
       } catch (error) {
         console.error("Error fetching user role:", error);
