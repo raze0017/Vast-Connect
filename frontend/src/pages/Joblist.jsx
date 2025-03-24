@@ -18,8 +18,8 @@ const JobList = () => {
             },
           }
         );
-        console.log(response.data.username || "hello world");
-        setEmployerName(response.data.username);
+        console.log(response.data.user.username || "hello world");
+        setEmployerName(response.data.user.username);
         return response.data.username || "Unknown";
       } catch (error) {
         console.error("Error fetching employer name:", error);

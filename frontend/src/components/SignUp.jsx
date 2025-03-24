@@ -59,9 +59,11 @@ const SignUp = () => {
       if (response.status === 200) {
         const token = response.data.token;
         localStorage.setItem("token", token);
+
         const decodedToken = jwtDecode(token);
         localStorage.setItem("userId", decodedToken.id);
-        localStorage.setItem("role", formData.role); // Store role
+        localStorage.setItem("role", decodedToken.role); // Store the role from JWT
+
         window.location.href = "/feed";
       }
     } catch (error) {

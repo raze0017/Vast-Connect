@@ -18,14 +18,14 @@ import Users from "./pages/Users";
 import PostForm from "./pages/PostForm";
 import RealmForm from "./pages/RealmForm";
 import Notifications from "./pages/Notifications";
-import JobList from "./pages/JobList";
+import JobList from "./pages/joblist";
 import { NotificationsProvider } from "./contexts/NotificationsContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthenticatedLayout from "./contexts/AuthenticatedLayout";
 import { UserProvider } from "./contexts/UserContext";
 import { PuffLoader } from "react-spinners";
-
+import JobCreate from "./pages/JobCreate";
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
@@ -81,7 +81,7 @@ const App = () => {
             <Route path="/feed" element={<Feed />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/jobs" element={<JobList />} />
-
+            <Route path="/create-job" element={<JobCreate />} />
             {/* User list routes */}
             <Route
               path="/posts/:id/liked"

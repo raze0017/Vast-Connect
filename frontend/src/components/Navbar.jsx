@@ -35,7 +35,7 @@ const Navbar = () => {
           }
         );
 
-        setUserRole(response.data.role);
+        setUserRole(response.data.user.role);
       } catch (error) {
         console.error("Error fetching user role:", error);
       }
@@ -95,15 +95,13 @@ const Navbar = () => {
             <span className="hidden md:inline">Groups</span>
           </Link>
 
-          {userRole === "employer" && (
-            <Link
-              to="/submit-post?group=Jobs"
-              className="h-8 flex items-center space-x-4 hover:text-gray-400 transition"
-            >
-              <FontAwesomeIcon icon={faBriefcase} />
-              <span className="hidden md:inline">Post Jobs</span>
-            </Link>
-          )}
+          <Link
+            to="/create-job"
+            className="h-8 flex items-center space-x-4 hover:text-gray-400 transition"
+          >
+            <FontAwesomeIcon icon={faBriefcase} />
+            <span className="hidden md:inline">Post Jobs</span>
+          </Link>
 
           {/* Dropdown Menu */}
           <Menu as="div" className="relative">
