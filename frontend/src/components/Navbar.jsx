@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useNotifications } from "../contexts/NotificationsContext";
+import { useEffect, useState } from "react";
+import axios from "axios"; // Import axios for API calls
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouse,
@@ -15,15 +17,37 @@ import { faMicroblog } from "@fortawesome/free-brands-svg-icons";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId");
-  const userRole = localStorage.getItem("role"); // Check if the user is an employer
   const { unreadCount } = useNotifications();
+  const [userRole, setUserRole] = useState(null);
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        console.log("Fetching user role for ID:", userId);
+
+        const response = await axios.get(
+          `http://localhost:5000/users/${userId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        setUserRole(response.data.role);
+      } catch (error) {
+        console.error("Error fetching user role:", error);
+      }
+    };
+
+    fetchUserRole();
+  }, []);
 
   const handleLogout = async () => {
     try {
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
-      localStorage.removeItem("role");
       navigate("/");
       window.location.reload();
     } catch (error) {
@@ -56,12 +80,30 @@ const Navbar = () => {
             <span className="hidden md:inline">Posts</span>
           </Link>
           <Link
+            to="/jobs"
+            className="h-8 flex items-center space-x-4 hover:text-gray-400 transition"
+          >
+            <FontAwesomeIcon icon={faBriefcase} />
+            <span className="hidden md:inline">Jobs</span>
+          </Link>
+
+          <Link
             to="/realms"
             className="h-8 flex items-center space-x-4 hover:text-gray-400 transition"
           >
             <FontAwesomeIcon icon={faLayerGroup} />
             <span className="hidden md:inline">Groups</span>
           </Link>
+
+          {userRole === "employer" && (
+            <Link
+              to="/submit-post?group=Jobs"
+              className="h-8 flex items-center space-x-4 hover:text-gray-400 transition"
+            >
+              <FontAwesomeIcon icon={faBriefcase} />
+              <span className="hidden md:inline">Post Jobs</span>
+            </Link>
+          )}
 
           {/* Dropdown Menu */}
           <Menu as="div" className="relative">
@@ -88,17 +130,6 @@ const Navbar = () => {
                   <span>New Realm</span>
                 </Link>
               </MenuItem>
-              {userRole === "employer" && (
-                <MenuItem>
-                  <Link
-                    to="/submit-job"
-                    className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 space-x-2"
-                  >
-                    <FontAwesomeIcon icon={faBriefcase} />
-                    <span>New Job Post</span>
-                  </Link>
-                </MenuItem>
-              )}
             </MenuItems>
           </Menu>
 

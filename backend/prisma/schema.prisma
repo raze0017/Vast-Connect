@@ -14,6 +14,12 @@ datasource db {
   directUrl = env("DIRECT_DATABASE_URL")
 }
 
+enum UserRole {
+  STUDENT
+  PROFESSOR
+  EMPLOYER
+}
+
 model User {
   id             String      @id @default(uuid())
   createdAt      DateTime    @default(now())
@@ -21,6 +27,7 @@ model User {
   username       String      @unique
   password       String
   bio            String?
+  role           UserRole    @default(STUDENT) // Default to student
 
   profilePictureUrl String?
   profilePicturePublicId  String?
@@ -28,7 +35,6 @@ model User {
   posts          Post[]
   images         Image[]
   likes          Like[]      @relation("LikedBy")
-
   comments       Comment[]
   commentLikes   CommentLike[]
 
@@ -44,7 +50,10 @@ model User {
 
   // Messaging
   sent           Message[]   @relation("SentMessages")
-  received       Message[]   @relation("ReceivedMessages") 
+  received       Message[]   @relation("ReceivedMessages")
+
+  // Jobs
+  jobs           Job[]       @relation("JobAuthor")
 }
 
 model Follow {
@@ -205,3 +214,16 @@ model Message {
   receiver    User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
   createdAt   DateTime @default(now())
 }
+model Job {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  description String
+  salary      String?
+  company     String   // 🔹 Add this field
+  location    String   // 🔹 Add this field
+  author      User     @relation("JobAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    String
+}
+

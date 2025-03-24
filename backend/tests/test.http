@@ -1,0 +1,12 @@
+POST http://localhost:5000/jobs
+Content-Type: application/json
+Authorization: Bearer your_jwt_token
+
+{
+  "title": "Software Engineer 4",
+  "description": "Develop scalable applications and awesome software",
+  "company": "Amazon",
+  "location": "Remote",
+  "salary": "₹10 LPA",
+  "authorId": "d76e4265-dda9-4f74-b761-01d043a98811"
+}

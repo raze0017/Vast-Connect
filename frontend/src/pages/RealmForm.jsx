@@ -251,7 +251,7 @@ const RealmForm = () => {
                 ) : (
                   <>
                     <FontAwesomeIcon icon={faLayerGroup} />
-                    <span>Create Realm</span>
+                    <span>Create Group</span>
                   </>
                 )}
               </button>
