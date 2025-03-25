@@ -7,6 +7,9 @@ import {
 } from "react-router-dom";
 import { checkAuth } from "./services/checkAuth"; // A utility function to check if user is logged in
 
+import { useUser } from "./contexts/UserContext";
+import Navbar from "./components/Navbar";
+
 import UnauthenticatedPage from "./pages/UnauthenticatedPage";
 import ProfilePage from "./pages/ProfilePage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -28,7 +31,6 @@ import { PuffLoader } from "react-spinners";
 import JobCreate from "./pages/JobCreate";
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-
   useEffect(() => {
     // Check if the user is authenticated on component mount
     checkAuth().then((isAuth) => setIsAuthenticated(isAuth));

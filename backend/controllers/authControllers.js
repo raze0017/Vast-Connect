@@ -14,8 +14,8 @@ module.exports = {
       });
     }
     // Add user to database
-    const { email, username, password } = req.body;
-    const newUser = await userQueries.addUser(email, username, password);
+    const { email, username, password, role } = req.body;
+    const newUser = await userQueries.addUser(email, username, password, role);
 
     // Send success response
     res.status(201).json({
@@ -24,6 +24,7 @@ module.exports = {
         id: newUser.id,
         username: newUser.username,
         email: newUser.email,
+        role: newUser.role,
       },
     });
   },

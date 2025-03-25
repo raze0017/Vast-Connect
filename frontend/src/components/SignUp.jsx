@@ -59,11 +59,9 @@ const SignUp = () => {
       if (response.status === 200) {
         const token = response.data.token;
         localStorage.setItem("token", token);
-
         const decodedToken = jwtDecode(token);
         localStorage.setItem("userId", decodedToken.id);
-        localStorage.setItem("role", decodedToken.role); // Store the role from JWT
-
+        localStorage.setItem("role", formData.role); // Store role
         window.location.href = "/feed";
       }
     } catch (error) {
@@ -86,8 +84,8 @@ const SignUp = () => {
             <label className="text-gray-300">
               <input
                 type="radio"
-                value="student"
-                checked={formData.role === "student"}
+                value="STUDENT"
+                checked={formData.role === "STUDENT"}
                 onChange={handleRoleChange}
               />{" "}
               Student
@@ -95,8 +93,8 @@ const SignUp = () => {
             <label className="text-gray-300">
               <input
                 type="radio"
-                value="professor"
-                checked={formData.role === "professor"}
+                value="PROFESSOR"
+                checked={formData.role === "PROFESSOR"}
                 onChange={handleRoleChange}
               />{" "}
               Professor
@@ -104,8 +102,8 @@ const SignUp = () => {
             <label className="text-gray-300">
               <input
                 type="radio"
-                value="employer"
-                checked={formData.role === "employer"}
+                value="EMPLOYER"
+                checked={formData.role === "EMPLOYER"}
                 onChange={handleRoleChange}
               />{" "}
               Employer
