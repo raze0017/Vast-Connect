@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { faMicroblog } from "@fortawesome/free-brands-svg-icons";
-
+import PermissionDenied from "../pages/PermissionDenied";
 const Navbar = () => {
   const navigate = useNavigate();
   const { unreadCount } = useNotifications();
@@ -95,13 +95,24 @@ const Navbar = () => {
             <span className="hidden md:inline">Groups</span>
           </Link>
 
-          <Link
-            to="/create-job"
-            className="h-8 flex items-center space-x-4 hover:text-gray-400 transition"
-          >
-            <FontAwesomeIcon icon={faBriefcase} />
-            <span className="hidden md:inline">Post Jobs</span>
-          </Link>
+          {userRole === "EMPLOYER" ? (
+            <Link
+              to="/create-job"
+              className="h-8 flex items-center space-x-4 hover:text-gray-400 transition"
+            >
+              <FontAwesomeIcon icon={faBriefcase} />
+              <span className="hidden md:inline">Post Jobs</span>
+            </Link>
+          ) : (
+            <Link
+              to="/permission"
+              className="h-8 flex items-center space-x-4 hover:text-gray-400 transition"
+            >
+              {" "}
+              <FontAwesomeIcon icon={faBriefcase} />
+              <span className="hidden md:inline">Post Jobs</span>
+            </Link>
+          )}
 
           {/* Dropdown Menu */}
           <Menu as="div" className="relative">

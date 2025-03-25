@@ -9,7 +9,7 @@ import { checkAuth } from "./services/checkAuth"; // A utility function to check
 
 import { useUser } from "./contexts/UserContext";
 import Navbar from "./components/Navbar";
-
+import PermissionDenied from "./pages/PermissionDenied";
 import UnauthenticatedPage from "./pages/UnauthenticatedPage";
 import ProfilePage from "./pages/ProfilePage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -84,6 +84,7 @@ const App = () => {
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/jobs" element={<JobList />} />
             <Route path="/create-job" element={<JobCreate />} />
+            <Route path="/permission" element={<PermissionDenied />} />
             {/* User list routes */}
             <Route
               path="/posts/:id/liked"
