@@ -189,10 +189,11 @@ For any issues or contributions, reach out to:
 
 ### Credits
 
-This project is based on the original idea and foundational code from: [https://github.com/HarryAhnHS/flexor-front-end](https://github.com/HarryAhnHS/flexor-front-end).
+This project is based on the foundational code from: [https://github.com/HarryAhnHS/flexor-front-end](https://github.com/HarryAhnHS/flexor-front-end).
 
 Additional contributions:
 
+- **Tailored to University Students**, Adapted from a generic social media app to account for a real world solution.
 - **Implemented user role selection**, allowing students and faculty to have distinct functionalities.
 - **Developed a job posting feature**, where students can browse and apply for internships and part-time jobs.
 - Planning to add more features in the future.
