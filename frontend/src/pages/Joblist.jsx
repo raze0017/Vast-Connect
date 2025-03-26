@@ -6,7 +6,7 @@ const JobList = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [appliedJobs, setAppliedJobs] = useState(new Set());
-  const [employerName, setEmployerName] = useState("UNKNown");
+
   useEffect(() => {
     const fetchEmployerName = async (authorId) => {
       try {
@@ -14,13 +14,11 @@ const JobList = () => {
           `http://localhost:5000/users/${authorId}`,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`, // or sessionStorage
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
-        console.log(response.data.user.username || "hello world");
-        setEmployerName(response.data.user.username);
-        return response.data.username || "Unknown";
+        return response.data.user.username || "Unknown"; // Return the username instead of setting state
       } catch (error) {
         console.error("Error fetching employer name:", error);
         return "Unknown";
@@ -31,17 +29,17 @@ const JobList = () => {
       try {
         const response = await axios.get(`http://localhost:5000/jobs`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming token is stored in localStorage
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
         const jobsData = response.data?.jobs || response.data || [];
 
-        // Fetch employer names in parallel
+        // Fetch employer names in parallel and update the jobs array correctly
         const jobsWithEmployers = await Promise.all(
-          jobsData.map(async (job) => ({
-            ...job,
-            employerName: await fetchEmployerName(job.authorId),
-          }))
+          jobsData.map(async (job) => {
+            const employerName = await fetchEmployerName(job.authorId);
+            return { ...job, employerName }; // Store employer name inside the job object
+          })
         );
 
         setJobs(jobsWithEmployers);
@@ -87,9 +85,8 @@ const JobList = () => {
                 <p className="text-gray-400 mb-2">
                   Posted on: {new Date(job.createdAt).toLocaleDateString()}
                 </p>
-
-                <p className="text-gray-400">Posted by: {employerName}</p>
-
+                <p className="text-gray-400">Posted by: {job.employerName}</p>{" "}
+                {/* ✅ Uses correct employer name */}
                 <button
                   onClick={() => handleApply(job.id || job._id)}
                   className={`mt-4 px-4 py-2 font-semibold rounded transition duration-300 ${

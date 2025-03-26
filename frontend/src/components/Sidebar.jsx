@@ -176,7 +176,7 @@ const Sidebar = () => {
           {/* Footer */}
           <div className="text-xs text-gray-500 flex flex-col items-center space-y-2">
             <a
-              href="https://github.com/HarryAhnHS"
+              href="https://github.com/raze0017/Vast-Connect"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center hover:text-white transition-colors"

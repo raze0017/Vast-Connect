@@ -4,7 +4,12 @@ A **social media web application** designed specifically for college students to
 
 ## Features
 
+## Features
+
 ### User Authentication
+
+![Signup Page](./img/signup.png)
+![Login Page](./img/login.png)
 
 - Secure **sign-up and login system** using JWT authentication.
 - Password encryption with **bcrypt**.
@@ -12,27 +17,37 @@ A **social media web application** designed specifically for college students to
 
 ### User Profiles
 
+![Profile Page](./img/userprofile.png)
+
 - Users can **create, edit, and update** their profiles.
 - Profiles display **bio, skills, education, and posts**.
 
 ### Posts & Discussions
+
+![Feed Page](./img/feed.png)
 
 - Users can **create, like, and comment** on posts.
 - Faculty can **share important updates** and opportunities.
 
 ### Job Posting System
 
+![Job Listings](./img/joblist.png)
+![Job Creation](./img/jobpost.png)
+
 - Employers and faculty can **post job/internship opportunities**.
 - Students can **apply for positions** through the platform.
 
-### Notifications
+### Groups & Community
 
-- Real-time notifications for **post likes, comments, job offers**, etc.
+![Groups Page](./img/groups.png)
 
-### Friend Requests & Messaging
+- Users can **join and create groups** for discussions and collaborations.
 
-- Users can **send friend requests and connect** with others.
-- Private messaging feature for **one-on-one conversations**.
+### Posting Form
+
+![Post Creation](./img/createpost.png)
+
+- Users can **share thoughts, post opportunities, and discuss**.
 
 ## Tech Stack
 
