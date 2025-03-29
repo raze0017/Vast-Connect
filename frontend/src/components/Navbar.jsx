@@ -79,13 +79,6 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faHouse} />
             <span className="hidden md:inline">Posts</span>
           </Link>
-          <Link
-            to="/jobs"
-            className="h-8 flex items-center space-x-4 hover:text-gray-400 transition"
-          >
-            <FontAwesomeIcon icon={faBriefcase} />
-            <span className="hidden md:inline">Jobs</span>
-          </Link>
 
           <Link
             to="/realms"
@@ -94,7 +87,23 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faLayerGroup} />
             <span className="hidden md:inline">Groups</span>
           </Link>
-
+          {userRole === "EMPLOYER" ? (
+            <Link
+              to="/list-applicants"
+              className="h-8 flex items-center space-x-4 hover:text-gray-400 transition"
+            >
+              <FontAwesomeIcon icon={faBriefcase} />
+              <span className="hidden md:inline">Show your jobs</span>
+            </Link>
+          ) : (
+            <Link
+              to="/jobs"
+              className="h-8 flex items-center space-x-4 hover:text-gray-400 transition"
+            >
+              <FontAwesomeIcon icon={faBriefcase} />
+              <span className="hidden md:inline">Jobs</span>
+            </Link>
+          )}
           {userRole === "EMPLOYER" ? (
             <Link
               to="/create-job"

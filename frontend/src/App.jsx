@@ -29,6 +29,7 @@ import AuthenticatedLayout from "./contexts/AuthenticatedLayout";
 import { UserProvider } from "./contexts/UserContext";
 import { PuffLoader } from "react-spinners";
 import JobCreate from "./pages/JobCreate";
+import ApplicantList from "./pages/ApplicantList";
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   useEffect(() => {
@@ -85,6 +86,7 @@ const App = () => {
             <Route path="/jobs" element={<JobList />} />
             <Route path="/create-job" element={<JobCreate />} />
             <Route path="/permission" element={<PermissionDenied />} />
+            <Route path="/list-applicants" element={<ApplicantList />} />
             {/* User list routes */}
             <Route
               path="/posts/:id/liked"
