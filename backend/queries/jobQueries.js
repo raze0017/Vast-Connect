@@ -12,5 +12,15 @@ async function getJobsByEmployer(employerId) {
     throw new Error("Could not retrieve jobs");
   }
 }
+async function getApplicantsByJob(jobId) {
+  return await prisma.jobApplication.findMany({
+    where: { jobId },
+    include: {
+      applicant: {
+        select: { id: true, username: true, email: true }, // Select only necessary fields
+      },
+    },
+  });
+}
 
-module.exports = { getJobsByEmployer };
+module.exports = { getJobsByEmployer, getApplicantsByJob };

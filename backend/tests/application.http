@@ -1,0 +1,8 @@
+POST http://localhost:5000/apply
+Content-Type: application/json
+Authorization: Bearer your_jwt_token
+
+{
+  "jobId": "28418cfb-58b5-44cd-b5e9-6e5dbba58c6f",
+  "username": "raze"
+}

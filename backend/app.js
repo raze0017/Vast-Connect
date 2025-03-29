@@ -22,6 +22,7 @@ const notificationRoutes = require("./routes/notificationsRoutes");
 const searchRoutes = require("./routes/searchRoutes");
 const jobsRouter = require("./routes/jobs");
 const employerRoutes = require("./routes/jobRoutes");
+const applicationRoutes = require("./routes/jobApplicationRoutes");
 // Initialize express
 const app = express();
 const server = http.createServer(app);
@@ -158,8 +159,8 @@ app.use((err, req, res, next) => {
   });
 });
 app.use("/employers", employerRoutes); // Use the new route
-
-const port = process.env.PORT || 3000;
+app.use("/apply", applicationRoutes);
+const port = process.env.PORT || 5000;
 server.listen(port, () => {
   console.log("App listening on port ", port);
 });
