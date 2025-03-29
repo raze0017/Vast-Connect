@@ -21,7 +21,7 @@ const imagesRoutes = require("./routes/imagesRoutes");
 const notificationRoutes = require("./routes/notificationsRoutes");
 const searchRoutes = require("./routes/searchRoutes");
 const jobsRouter = require("./routes/jobs");
-
+const employerRoutes = require("./routes/jobRoutes");
 // Initialize express
 const app = express();
 const server = http.createServer(app);
@@ -157,6 +157,7 @@ app.use((err, req, res, next) => {
     message: err.message || "Internal Server Error",
   });
 });
+app.use("/employers", employerRoutes); // Use the new route
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {

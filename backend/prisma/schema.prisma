@@ -54,6 +54,8 @@ model User {
 
   // Jobs
   jobs           Job[]       @relation("JobAuthor")
+  jobApplications JobApplication[] // ✅ Users apply to multiple jobs
+
 }
 
 model Follow {
@@ -225,5 +227,21 @@ model Job {
   location    String   // 🔹 Add this field
   author      User     @relation("JobAuthor", fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String
+  applicants   JobApplication[] // ✅ Jobs have multiple applicants
+
 }
 
+model JobApplication {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+
+  applicant   User     @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  applicantId String
+
+  job         Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  jobId       String
+
+  status      String   @default("pending") // Optional: Track application status
+
+  @@unique([applicantId, jobId]) // Prevent duplicate applications
+}
