@@ -29,11 +29,13 @@ const Login = () => {
         data: formData, // Send the form data as JSON
       });
       if (response.status === 200) {
+        localStorage.setItem("username", formData.username); // Save username from input
         const token = response.data.token;
         localStorage.setItem("token", token);
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.id;
         localStorage.setItem("userId", userId);
+
         window.location.href = "/feed"; // Redirect to home page
       }
     } catch (error) {

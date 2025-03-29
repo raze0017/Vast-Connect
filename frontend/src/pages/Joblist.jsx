@@ -8,6 +8,11 @@ const JobList = () => {
   const [appliedJobs, setAppliedJobs] = useState(new Set());
 
   useEffect(() => {
+    // Load applied jobs from localStorage
+    const storedAppliedJobs =
+      JSON.parse(localStorage.getItem("appliedJobs")) || [];
+    setAppliedJobs(new Set(storedAppliedJobs));
+
     const fetchEmployerName = async (authorId) => {
       try {
         const response = await axios.get(
@@ -18,7 +23,7 @@ const JobList = () => {
             },
           }
         );
-        return response.data.user.username || "Unknown"; // Return the username instead of setting state
+        return response.data.user.username || "Unknown";
       } catch (error) {
         console.error("Error fetching employer name:", error);
         return "Unknown";
@@ -34,11 +39,10 @@ const JobList = () => {
         });
         const jobsData = response.data?.jobs || response.data || [];
 
-        // Fetch employer names in parallel and update the jobs array correctly
         const jobsWithEmployers = await Promise.all(
           jobsData.map(async (job) => {
             const employerName = await fetchEmployerName(job.authorId);
-            return { ...job, employerName }; // Store employer name inside the job object
+            return { ...job, employerName };
           })
         );
 
@@ -54,8 +58,32 @@ const JobList = () => {
     fetchJobs();
   }, []);
 
-  const handleApply = (jobId) => {
-    setAppliedJobs((prev) => new Set([...prev, jobId])); // Fix mutation issue
+  const handleApply = async (jobId) => {
+    const username = localStorage.getItem("username");
+
+    try {
+      await axios.post(
+        `http://localhost:5000/apply`,
+        { jobId, username },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      // Update applied jobs state
+      setAppliedJobs((prev) => {
+        const newAppliedJobs = new Set([...prev, jobId]);
+        localStorage.setItem(
+          "appliedJobs",
+          JSON.stringify([...newAppliedJobs])
+        );
+        return newAppliedJobs;
+      });
+    } catch (error) {
+      console.error("Error submitting application:", error);
+    }
   };
 
   if (loading) {
@@ -85,10 +113,14 @@ const JobList = () => {
                 <p className="text-gray-400 mb-2">
                   Posted on: {new Date(job.createdAt).toLocaleDateString()}
                 </p>
-                <p className="text-gray-400">Posted by: {job.employerName}</p>{" "}
-                {/* ✅ Uses correct employer name */}
+                <p className="text-gray-400">Posted by: {job.employerName}</p>
                 <button
-                  onClick={() => handleApply(job.id || job._id)}
+                  onClick={() =>
+                    handleApply(
+                      job.id || job._id,
+                      localStorage.getItem("username")
+                    )
+                  }
                   className={`mt-4 px-4 py-2 font-semibold rounded transition duration-300 ${
                     appliedJobs.has(job.id || job._id)
                       ? "bg-gray-500 cursor-not-allowed"
