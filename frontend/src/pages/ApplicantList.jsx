@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 function ApplicantList() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,49 +29,51 @@ function ApplicantList() {
     fetchJobs();
   }, []);
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold text-white mb-4">Your Posted Jobs</h2>
-      {loading && <p>Loading jobs...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-      <ul className="space-y-6">
-        {jobs.map((job) => (
-          <li key={job.id} className="p-5 bg-gray-700 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold text-white">{job.title}</h3>
-            <p className="text-gray-300">{job.description}</p>
-            <p className="text-gray-400 mt-1">
-              <strong>Salary:</strong> {job.salary}
-            </p>
-            <p className="text-gray-400">
-              <strong>Company:</strong> {job.company}
-            </p>
-            <p className="text-gray-400">
-              <strong>Location:</strong> {job.location}
-            </p>
-
-            {/* Applicants Section */}
-            <h4 className="text-white mt-4">Applicants:</h4>
-            <ul className="text-gray-300 ml-4">
-              {job.applicants.length > 0 ? (
-                job.applicants.map((app) => (
-                  <li key={app.id} className="border-b border-gray-600 py-2">
-                    <p>
-                      <strong>Name:</strong> {app.applicant.username}
-                    </p>
-                    <p>
-                      <strong>Email:</strong> {app.applicant.email}
-                    </p>
-                    <p>
-                      <strong>Status:</strong> {app.status}
-                    </p>
-                  </li>
-                ))
-              ) : (
-                <li className="text-gray-500">No applicants yet</li>
-              )}
-            </ul>
-          </li>
-        ))}
-      </ul>
+    <div className="bg-gray-900 text-gray-100 min-h-screen">
+      <div className="container mx-auto p-6">
+        <h2 className="text-3xl font-bold mb-6">Your Job Listings</h2>
+        {jobs.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6">
+            {jobs.map((job) => (
+              <div
+                key={job.id}
+                className="p-4 border border-gray-700 rounded-lg shadow-lg"
+              >
+                <h3 className="text-2xl font-bold mb-2">{job.title}</h3>
+                <p className="text-gray-300 mb-4">{job.description}</p>
+                <p className="text-gray-400 mb-2">Company: {job.company}</p>
+                <p className="text-gray-400 mb-2">Salary: {job.salary}</p>
+                <p className="text-gray-400 mb-2">Location: {job.location}</p>
+                <p className="text-gray-400 mb-2">
+                  Posted on: {new Date(job.createdAt).toLocaleDateString()}
+                </p>
+                <h4 className="text-xl font-semibold mt-4 mb-2">Applicants:</h4>
+                {job.applicants.length > 0 ? (
+                  <ul className="list-disc list-inside">
+                    {job.applicants.map((applicant) => (
+                      <li key={applicant.id} className="mb-2">
+                        <Link
+                          to={`/profile/${applicant.applicant.id}`}
+                          className="text-blue-500 hover:underline"
+                        >
+                          {applicant.applicant.username}
+                        </Link>
+                        <span className="text-gray-400 ml-2">
+                          ({applicant.status})
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-gray-400">No applicants yet.</p>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-400">No jobs posted.</p>
+        )}
+      </div>
     </div>
   );
 }
