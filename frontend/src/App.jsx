@@ -39,13 +39,13 @@ const App = () => {
 
   if (isAuthenticated === null) {
     return (
-      <div className="h-screen w-screen bg-gray-900">
+      <div className="h-screen w-screen secondary">
         <div className="flex flex-col justify-center items-center h-full">
           <PuffLoader color="#5C6BC0" size={60} />
-          <p className="mt-3 font-semibold text-sm text-indigo-500">
+          <p className="mt-3 font-semibold text-sm text-secondary">
             Please be patient as the server wakes up!
           </p>
-          <p className="mt-1 font-light text-sm text-indigo-500">
+          <p className="mt-1 font-light text-sm text-secondary">
             Shhh I&#39;m on the free plan...
           </p>
         </div>

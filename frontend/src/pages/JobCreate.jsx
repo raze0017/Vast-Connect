@@ -32,7 +32,7 @@ function JobCreate() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/jobs",
+        `${import.meta.env.VITE_API_BASE_URL}/jobs`,
         { ...formData, authorId },
         {
           headers: {
@@ -59,7 +59,7 @@ function JobCreate() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-gray-900 text-white rounded-lg shadow-lg">
+    <div className="max-w-2xl mx-auto p-6 secondary text-primary rounded-lg shadow-lg">
       <h2 className="text-3xl font-bold mb-6">Post a Job</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -69,7 +69,7 @@ function JobCreate() {
             type="text"
             value={formData.title}
             onChange={handleChange}
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded"
+            className="w-full p-3 primary border border-gray-700 rounded"
             required
           />
         </div>
@@ -79,7 +79,7 @@ function JobCreate() {
             id="description"
             value={formData.description}
             onChange={handleChange}
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded"
+            className="w-full p-3 primary border border-gray-700 rounded"
             required
           />
         </div>
@@ -90,7 +90,7 @@ function JobCreate() {
             type="text"
             value={formData.company}
             onChange={handleChange}
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded"
+            className="w-full p-3 primary border border-gray-700 rounded"
             required
           />
         </div>
@@ -101,7 +101,7 @@ function JobCreate() {
             type="text"
             value={formData.location}
             onChange={handleChange}
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded"
+            className="w-full p-3 primary border border-gray-700 rounded"
             required
           />
         </div>
@@ -112,7 +112,7 @@ function JobCreate() {
             type="text"
             value={formData.salary}
             onChange={handleChange}
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded"
+            className="w-full p-3 primary border border-gray-700 rounded"
             required
           />
         </div>
@@ -120,7 +120,7 @@ function JobCreate() {
         {success && <div className="text-green-500 text-sm">{success}</div>}
         <button
           type="submit"
-          className="w-full p-3 bg-indigo-600 hover:bg-indigo-700 rounded font-semibold"
+          className="w-full p-3 neutral hover:base-100 rounded font-semibold"
         >
           Post Job
         </button>

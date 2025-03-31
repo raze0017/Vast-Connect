@@ -97,7 +97,7 @@ const RealmPreview = ({ realm, realmId, setRealms }) => {
   return (
     <div
       key={realmId}
-      className="bg-gray-800 text-white p-4 rounded-lg shadow-lg flex items-center space-x-6 cursor-pointer transition-colors"
+      className="primary text-primary p-4 rounded-lg shadow-lg flex items-center space-x-6 cursor-pointer transition-colors"
       onClick={(e) => redirectToRealm(e, realmId)}
     >
       {loading ? (
@@ -127,10 +127,7 @@ const RealmPreview = ({ realm, realmId, setRealms }) => {
               <div className="flex items-center px-3 text-gray-400">
                 <Menu as="div" className="relative">
                   <MenuButton onClick={(e) => e.stopPropagation()}>
-                    <FontAwesomeIcon
-                      icon={faEllipsis}
-                      className="hover:text-gray-300"
-                    />
+                    <FontAwesomeIcon icon={faEllipsis} className="hover:info" />
                   </MenuButton>
                   <MenuItems
                     className="absolute right-0 mt-2 bg-gray-700 text-gray-200 border border-gray-600 rounded-md w-40"
@@ -195,10 +192,10 @@ const RealmPreview = ({ realm, realmId, setRealms }) => {
               {/* Join Button */}
               <button
                 onClick={(e) => handleJoinRealm(e)}
-                className={`text-xs sm:text-sm px-3 py-2 rounded-lg text-white transition-colors ${
+                className={`text-xs sm:text-sm px-3 py-2 rounded-lg text-primary transition-colors ${
                   joined
                     ? "bg-gray-600 hover:bg-gray-500"
-                    : "bg-indigo-600 hover:bg-indigo-700"
+                    : "neutral hover:base-100"
                 }`}
               >
                 {joined ? (

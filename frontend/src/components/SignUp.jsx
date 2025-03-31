@@ -76,14 +76,12 @@ const SignUp = () => {
 
   return (
     <div className="p-6 max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-6 text-white">Sign Up</h2>
+      <h2 className="text-2xl font-bold mb-6 text-primary">Sign Up</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">
-            Role
-          </label>
+          <label className="block text-sm font-medium info mb-1">Role</label>
           <div className="flex space-x-4">
-            <label className="text-gray-300">
+            <label className="info">
               <input
                 type="radio"
                 value="STUDENT"
@@ -92,7 +90,7 @@ const SignUp = () => {
               />{" "}
               Student
             </label>
-            <label className="text-gray-300">
+            <label className="info">
               <input
                 type="radio"
                 value="PROFESSOR"
@@ -101,7 +99,7 @@ const SignUp = () => {
               />{" "}
               Professor
             </label>
-            <label className="text-gray-300">
+            <label className="info">
               <input
                 type="radio"
                 value="EMPLOYER"
@@ -115,7 +113,7 @@ const SignUp = () => {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-300 mb-1"
+            className="block text-sm font-medium info mb-1"
           >
             Email
           </label>
@@ -124,7 +122,7 @@ const SignUp = () => {
             type="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none"
+            className="w-full p-3 bg-gray-700 text-primary border border-gray-600 rounded-lg focus:outline-none"
             placeholder="Enter your email"
             required
           />
@@ -132,7 +130,7 @@ const SignUp = () => {
         <div>
           <label
             htmlFor="username"
-            className="block text-sm font-medium text-gray-300 mb-1"
+            className="block text-sm font-medium info mb-1"
           >
             Username
           </label>
@@ -141,7 +139,7 @@ const SignUp = () => {
             type="text"
             value={formData.username}
             onChange={handleChange}
-            className="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none"
+            className="w-full p-3 bg-gray-700 text-primary border border-gray-600 rounded-lg focus:outline-none"
             placeholder="Enter your username"
             required
           />
@@ -149,7 +147,7 @@ const SignUp = () => {
         <div>
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-gray-300 mb-1"
+            className="block text-sm font-medium info mb-1"
           >
             Password
           </label>
@@ -158,7 +156,7 @@ const SignUp = () => {
             type="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none"
+            className="w-full p-3 bg-gray-700 text-primary border border-gray-600 rounded-lg focus:outline-none"
             placeholder="Enter your password"
             required
           />
@@ -166,7 +164,7 @@ const SignUp = () => {
         <div>
           <label
             htmlFor="confirmPassword"
-            className="block text-sm font-medium text-gray-300 mb-1"
+            className="block text-sm font-medium info mb-1"
           >
             Confirm Password
           </label>
@@ -175,7 +173,7 @@ const SignUp = () => {
             type="password"
             value={formData.confirmPassword}
             onChange={handleChange}
-            className="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none"
+            className="w-full p-3 bg-gray-700 text-primary border border-gray-600 rounded-lg focus:outline-none"
             placeholder="Confirm your password"
             required
           />
@@ -183,7 +181,7 @@ const SignUp = () => {
         {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
         <button
           type="submit"
-          className="w-full p-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors"
+          className="w-full p-3 neutral text-primary font-semibold rounded-lg hover:base-100 transition-colors"
         >
           Sign Up
         </button>

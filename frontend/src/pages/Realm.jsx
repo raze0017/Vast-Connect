@@ -94,7 +94,7 @@ const Realm = () => {
   }
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen p-6">
+    <div className="secondary text-primary min-h-screen p-6">
       {realm && (
         <div className="container mx-auto flex justify-center flex-wrap rounded-lg mb-8">
           {/* Realm Image */}
@@ -151,11 +151,11 @@ const Realm = () => {
                       <MenuButton onClick={(e) => e.stopPropagation()}>
                         <FontAwesomeIcon
                           icon={faEllipsis}
-                          className="hover:text-gray-300"
+                          className="hover:info"
                         />
                       </MenuButton>
                       <MenuItems
-                        className="absolute right-0 mt-2 bg-gray-800 text-gray-200 border border-gray-700 rounded-md w-40"
+                        className="absolute right-0 mt-2 primary text-gray-200 border border-gray-700 rounded-md w-40"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {isCreator && (
@@ -222,10 +222,10 @@ const Realm = () => {
                 {/* Join Button */}
                 <button
                   onClick={(e) => handleJoinRealm(e, realmId)}
-                  className={`px-4 py-2 rounded-lg text-white transition-colors ${
+                  className={`px-4 py-2 rounded-lg text-primary transition-colors ${
                     joined
                       ? "bg-gray-600 hover:bg-gray-500"
-                      : "bg-indigo-600 hover:bg-indigo-700"
+                      : "neutral hover:base-100"
                   }`}
                 >
                   {joined ? (

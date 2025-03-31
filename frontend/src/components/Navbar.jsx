@@ -56,14 +56,14 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-900 text-white flex flex-col h-full py-4 px-2 md:px-6 transition-all duration-300 border-r border-gray-700">
+    <nav className="secondary text-primary flex flex-col h-full py-4 px-2 md:px-6 transition-all duration-300 border-r border-gray-700">
       {/* Logo */}
       <div className="mt-2 text-md font-bold md:text-2xl">
         <Link
           to="/feed"
           className="transition flex justify-center items-center"
         >
-          <span className="font-bold text-indigo-500">Vast </span>Connect
+          <span className="font-bold text-secondary">Vast </span>Connect
         </Link>
       </div>
 
@@ -129,11 +129,11 @@ const Navbar = () => {
               <FontAwesomeIcon icon={faSquarePlus} />
               <span className="hidden md:inline">Create</span>
             </MenuButton>
-            <MenuItems className="absolute left-0 mt-2 w-40 bg-gray-800 rounded shadow-lg py-2 border border-gray-700 z-50">
+            <MenuItems className="absolute left-0 mt-2 w-40 primary rounded shadow-lg py-2 border border-gray-700 z-50">
               <MenuItem>
                 <Link
                   to="/submit-post"
-                  className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 space-x-2"
+                  className="block px-4 py-2 text-sm info hover:bg-gray-700 space-x-2"
                 >
                   <FontAwesomeIcon icon={faMicroblog} />
                   <span>New Post</span>
@@ -142,7 +142,7 @@ const Navbar = () => {
               <MenuItem>
                 <Link
                   to="/submit-realm"
-                  className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 space-x-2"
+                  className="block px-4 py-2 text-sm info hover:bg-gray-700 space-x-2"
                 >
                   <FontAwesomeIcon icon={faLayerGroup} />
                   <span>New Realm</span>
@@ -160,7 +160,7 @@ const Navbar = () => {
               <div className="relative">
                 <FontAwesomeIcon icon={faBell} />
                 {unreadCount !== 0 && (
-                  <span className="absolute top-[-10px] right-[-12px] w-4 h-4 rounded-full text-xs text-white bg-red-600 flex items-center justify-center">
+                  <span className="absolute top-[-10px] right-[-12px] w-4 h-4 rounded-full text-xs text-primary bg-red-600 flex items-center justify-center">
                     {unreadCount}
                   </span>
                 )}

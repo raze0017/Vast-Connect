@@ -7,3 +7,8 @@
 * {
   font-family: "Quicksand", sans-serif;
 }
+
+/* Ensure all text is white by default */
+body {
+  @apply text-primary-content;
+}

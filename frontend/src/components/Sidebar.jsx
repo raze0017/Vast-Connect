@@ -45,7 +45,7 @@ const Sidebar = () => {
   };
 
   return (
-    <nav className="hidden lg:flex bg-gray-900 text-white flex-col h-full py-6 px-4 border-l border-gray-700">
+    <nav className="hidden lg:flex secondary text-primary flex-col h-full py-6 px-4 border-l border-gray-700">
       {loading || suggestedLoading ? (
         <div className="flex justify-center items-center h-full w-[230px]">
           <PuffLoader color="#5C6BC0" size={60} />
@@ -77,20 +77,16 @@ const Sidebar = () => {
 
           {/* Suggested */}
           <div className="mb-4 flex-1 overflow-y-scroll">
-            <div className="font-bold text-gray-300 mb-4">
-              Suggested for you
-            </div>
+            <div className="font-bold info mb-4">Suggested for you</div>
 
             {/* Suggested Users */}
             <div className="mb-2">
-              <h3 className="text-sm text-gray-300 font-semibold mb-2">
-                Users
-              </h3>
+              <h3 className="text-sm info font-semibold mb-2">Users</h3>
               {suggestedUsers.length > 0 ? (
                 suggestedUsers.map((user) => (
                   <div
                     key={user.id}
-                    className="flex items-center justify-between p-2 mb-2 rounded-lg hover:bg-gray-800 hover:shadow-md transition-all cursor-pointer group"
+                    className="flex items-center justify-between p-2 mb-2 rounded-lg hover:primary hover:shadow-md transition-all cursor-pointer group"
                     onClick={(e) => handleUserNavigate(e, user.id)}
                   >
                     <div className="flex items-center gap-4">
@@ -123,14 +119,12 @@ const Sidebar = () => {
 
             {/* Suggested Realms */}
             <div className="mb-2">
-              <h3 className="text-sm text-gray-300 font-semibold mb-2">
-                Realms
-              </h3>
+              <h3 className="text-sm info font-semibold mb-2">Realms</h3>
               {suggestedRealms.length > 0 ? (
                 suggestedRealms.map((realm) => (
                   <div
                     key={realm.id}
-                    className="flex items-center justify-between p-2 mb-2 rounded-lg hover:bg-gray-800 hover:shadow-md transition-all cursor-pointer group"
+                    className="flex items-center justify-between p-2 mb-2 rounded-lg hover:primary hover:shadow-md transition-all cursor-pointer group"
                     onClick={(e) => handleRealmNavigate(e, realm.id)}
                   >
                     <div className="flex items-center gap-4">
@@ -160,7 +154,7 @@ const Sidebar = () => {
                     You joined all our realms!
                   </p>
                   <p
-                    className="text-indigo-500 text-sm cursor-pointer hover:underline"
+                    className="text-secondary text-sm cursor-pointer hover:underline"
                     onClick={() => navigate("/submit-realm")}
                   >
                     Create a new one here
@@ -179,7 +173,7 @@ const Sidebar = () => {
               href="https://github.com/raze0017/Vast-Connect"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center hover:text-white transition-colors"
+              className="flex items-center hover:text-primary transition-colors"
             >
               <FontAwesomeIcon icon={faGithub} className="text-lg mr-1" />
               Developed by &nbsp;

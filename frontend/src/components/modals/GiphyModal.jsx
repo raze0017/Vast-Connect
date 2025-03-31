@@ -1,30 +1,36 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import giphyClient from '../../services/giphyClient';
-import { PuffLoader } from 'react-spinners';
+import { useState, useEffect, useRef, useCallback } from "react";
+import giphyClient from "../../services/giphyClient";
+import { PuffLoader } from "react-spinners";
 
 // Debounce function to limit API calls while typing
 const useDebounce = (callback, delay) => {
   const timer = useRef();
 
-  const debouncedCallback = useCallback((...args) => {
-    if (timer.current) {
-      clearTimeout(timer.current);
-    }
-    timer.current = setTimeout(() => {
-      callback(...args);
-    }, delay);
-  }, [callback, delay]);
+  const debouncedCallback = useCallback(
+    (...args) => {
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
+      timer.current = setTimeout(() => {
+        callback(...args);
+      }, delay);
+    },
+    [callback, delay]
+  );
 
   return debouncedCallback;
 };
 
 const GiphyModal = ({ isOpen, onClose, onGifSelect }) => {
-  const [gifSearchTerm, setGifSearchTerm] = useState('');
+  const [gifSearchTerm, setGifSearchTerm] = useState("");
   const [gifs, setGifs] = useState([]);
   const [isLoadingGifs, setIsLoadingGifs] = useState(false);
   const modalRef = useRef();
 
-  const debouncedFetchGifs = useDebounce((searchTerm) => fetchGifs(searchTerm), 300);
+  const debouncedFetchGifs = useDebounce(
+    (searchTerm) => fetchGifs(searchTerm),
+    300
+  );
 
   useEffect(() => {
     if (gifSearchTerm) {
@@ -38,7 +44,7 @@ const GiphyModal = ({ isOpen, onClose, onGifSelect }) => {
       const { data } = await giphyClient.search(searchTerm, { limit: 6 });
       setGifs(data);
     } catch (error) {
-      console.error('Error fetching GIFs:', error);
+      console.error("Error fetching GIFs:", error);
     } finally {
       setIsLoadingGifs(false);
     }
@@ -54,10 +60,10 @@ const GiphyModal = ({ isOpen, onClose, onGifSelect }) => {
 
   const handleClose = useCallback(() => {
     // Reset states + close
-    setGifSearchTerm('');
+    setGifSearchTerm("");
     setGifs([]);
     onClose();
-  },[onClose]);
+  }, [onClose]);
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -67,38 +73,37 @@ const GiphyModal = ({ isOpen, onClose, onGifSelect }) => {
     };
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleOutsideClick);
+      document.addEventListener("mousedown", handleOutsideClick);
     } else {
-      setGifSearchTerm('');
+      setGifSearchTerm("");
       setGifs([]);
     }
-    return () => document.removeEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, [isOpen, handleClose]);
 
   return (
     isOpen && (
-      <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-80">
+      <div className="fixed inset-0 flex items-center justify-center secondary bg-opacity-80">
         <div
           ref={modalRef}
-          className="bg-gray-800 text-gray-200 p-6 rounded-lg max-w-lg w-full max-h-[90vh] overflow-hidden shadow-lg relative"
+          className="primary text-gray-200 p-6 rounded-lg max-w-lg w-full max-h-[90vh] overflow-hidden shadow-lg relative"
         >
           <h3 className="text-lg font-bold mb-2">Search Giphy</h3>
-          <div className='text-sm mb-4 font-gray-200'>
-            <p className='text-xs text-indigo-500'>Credits to Giphy SDK</p>
+          <div className="text-sm mb-4 font-gray-200">
+            <p className="text-xs text-secondary">Credits to Giphy SDK</p>
           </div>
           <input
             type="text"
             value={gifSearchTerm}
             onChange={handleGifSearchChange}
             placeholder="Search for a GIF"
-            className="w-full p-2 border border-gray-700 rounded-lg mb-4 bg-gray-900 text-gray-200"
+            className="w-full p-2 border border-gray-700 rounded-lg mb-4 secondary text-gray-200"
           />
           {isLoadingGifs ? (
-              <div className="flex justify-center items-center h-full w-full">
-                <PuffLoader color="#5C6BC0" size={60} />
-              </div>
-            ) 
-            : (
+            <div className="flex justify-center items-center h-full w-full">
+              <PuffLoader color="#5C6BC0" size={60} />
+            </div>
+          ) : (
             <div className="gif-grid grid grid-cols-3 gap-2 max-h-60 overflow-y-auto">
               {gifs.map((gif) => (
                 <div
@@ -114,9 +119,9 @@ const GiphyModal = ({ isOpen, onClose, onGifSelect }) => {
                 </div>
               ))}
             </div>
-        )}
+          )}
           <button
-            className="absolute top-0 right-5 mt-4 text-white"
+            className="absolute top-0 right-5 mt-4 text-primary"
             onClick={handleClose}
           >
             &#10005;

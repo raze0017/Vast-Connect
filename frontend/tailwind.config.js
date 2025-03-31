@@ -18,4 +18,7 @@ export default {
     },
   },
   plugins: [daisyUi],
+  daisyui: {
+    themes: ["forest"], // Add the cyberpunk theme here
+  },
 };

@@ -151,9 +151,9 @@ const RealmForm = () => {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen p-6">
-      <div className="max-w-4xl mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-white mb-6">
+    <div className="secondary min-h-screen p-6">
+      <div className="max-w-4xl mx-auto primary p-6 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold text-primary mb-6">
           {realmId ? "Edit Realm" : "Create a New Realm"}
         </h2>
 
@@ -198,10 +198,7 @@ const RealmForm = () => {
             </div>
 
             <div className="mb-4">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-300"
-              >
+              <label htmlFor="name" className="block text-sm font-medium info">
                 <span className="text-red-600 text-lg mr-1">*</span>
                 Group Name:
               </label>
@@ -221,7 +218,7 @@ const RealmForm = () => {
             <div className="mb-4">
               <label
                 htmlFor="description"
-                className="block text-sm font-medium text-gray-300"
+                className="block text-sm font-medium info"
               >
                 <span className="text-red-600 text-lg mr-1">*</span>
                 Description:
@@ -241,7 +238,7 @@ const RealmForm = () => {
             <div className="flex space-x-4">
               <button
                 type="submit"
-                className="w-1/2 py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow flex items-center justify-center space-x-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="w-1/2 py-2 px-4 neutral text-primary font-semibold rounded-md shadow flex items-center justify-center space-x-2 hover:base-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 {isEditing ? (
                   <>
@@ -258,7 +255,7 @@ const RealmForm = () => {
               <button
                 type="button"
                 onClick={handleCancel}
-                className="w-1/2 py-2 px-4 bg-gray-500 text-white font-semibold rounded-md shadow flex items-center justify-center space-x-2 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
+                className="w-1/2 py-2 px-4 bg-gray-500 text-primary font-semibold rounded-md shadow flex items-center justify-center space-x-2 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
               >
                 <FontAwesomeIcon icon={faXmark} />
                 <span>Cancel</span>

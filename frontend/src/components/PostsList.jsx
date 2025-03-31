@@ -1,11 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
-import api from '../services/api';
-import PostPreview from './PostPreview';
-import DraftPreview from './DraftPreview';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowDown, faArrowsRotate, faArrowUp, faSort } from '@fortawesome/free-solid-svg-icons';
-import { PuffLoader } from 'react-spinners';
-import { useOutletContext } from 'react-router-dom'; // Import useOutletContext for scrollevent to paginate
+import { useCallback, useEffect, useState } from "react";
+import api from "../services/api";
+import PostPreview from "./PostPreview";
+import DraftPreview from "./DraftPreview";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowDown,
+  faArrowsRotate,
+  faArrowUp,
+  faSort,
+} from "@fortawesome/free-solid-svg-icons";
+import { PuffLoader } from "react-spinners";
+import { useOutletContext } from "react-router-dom"; // Import useOutletContext for scrollevent to paginate
 
 const PostsList = ({ sourceId, type }) => {
   const [posts, setPosts] = useState([]);
@@ -13,9 +18,9 @@ const PostsList = ({ sourceId, type }) => {
   const [refresh, setRefresh] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [sortField, setSortField] = useState('createdAt');
-  const [sortOrder, setSortOrder] = useState('desc');
-  const loggedInUserId = localStorage.getItem('userId');
+  const [sortField, setSortField] = useState("createdAt");
+  const [sortOrder, setSortOrder] = useState("desc");
+  const loggedInUserId = localStorage.getItem("userId");
   const limit = 10;
 
   const { scrollableRef } = useOutletContext();
@@ -36,39 +41,44 @@ const PostsList = ({ sourceId, type }) => {
         setLoading(true);
         let response;
         switch (type) {
-          case 'user_posts':
+          case "user_posts":
             response = await api.get(`/users/${sourceId}/posts`, {
-              params: { page, limit, sortField, sortOrder }
+              params: { page, limit, sortField, sortOrder },
             });
             break;
-          case 'user_liked':
+          case "user_liked":
             response = await api.get(`/users/${sourceId}/liked`, {
-              params: { page, limit, sortField, sortOrder }
+              params: { page, limit, sortField, sortOrder },
             });
             break;
-          case 'user_commented':
+          case "user_commented":
             response = await api.get(`/users/${sourceId}/commented`, {
-              params: { page, limit, sortField, sortOrder }
+              params: { page, limit, sortField, sortOrder },
             });
             break;
-          case 'user_drafts':
+          case "user_drafts":
             response = await api.get(`/users/${sourceId}/drafts`, {
-              params: { page, limit, sortField: 'createdAt', sortOrder: 'desc' }
+              params: {
+                page,
+                limit,
+                sortField: "createdAt",
+                sortOrder: "desc",
+              },
             });
             break;
-          case 'posts_all':
+          case "posts_all":
             response = await api.get(`/posts/`, {
-              params: { page, limit, sortField, sortOrder }
+              params: { page, limit, sortField, sortOrder },
             });
             break;
-          case 'posts_following':
+          case "posts_following":
             response = await api.get(`/posts/feed`, {
-              params: { page, limit, sortField, sortOrder }
+              params: { page, limit, sortField, sortOrder },
             });
             break;
-          case 'realm_posts':
+          case "realm_posts":
             response = await api.get(`/realms/${sourceId}/posts`, {
-              params: { page, limit, sortField, sortOrder }
+              params: { page, limit, sortField, sortOrder },
             });
             break;
           default:
@@ -80,9 +90,9 @@ const PostsList = ({ sourceId, type }) => {
           setHasMore(false);
         }
 
-        setPosts(prevPosts => [...prevPosts, ...response.data.posts]);
+        setPosts((prevPosts) => [...prevPosts, ...response.data.posts]);
       } catch (error) {
-        console.error('Error fetching posts data', error);
+        console.error("Error fetching posts data", error);
       } finally {
         setLoading(false);
       }
@@ -100,48 +110,47 @@ const PostsList = ({ sourceId, type }) => {
         hasMore &&
         !loading
       ) {
-        setPage(prevPage => prevPage + 1);
+        setPage((prevPage) => prevPage + 1);
       }
     };
 
     const scrollableElement = scrollableRef.current;
     if (scrollableElement) {
-      scrollableElement.addEventListener('scroll', handleScroll);
+      scrollableElement.addEventListener("scroll", handleScroll);
     }
     return () => {
       if (scrollableElement) {
-        scrollableElement.removeEventListener('scroll', handleScroll);
+        scrollableElement.removeEventListener("scroll", handleScroll);
       }
     };
   }, [scrollableRef, hasMore, loading]);
 
   const handleRefresh = () => {
     resetPost();
-    setRefresh(prev => !prev);
+    setRefresh((prev) => !prev);
   };
 
   const handleSortChange = (e) => {
     setSortField(e.target.value);
     setPage(1); // Reset the page number when sort field changes
-
   };
 
   const toggleSortOrder = () => {
-    setSortOrder(prevOrder => (prevOrder === 'asc' ? 'desc' : 'asc'));
+    setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
     setPage(1); // Reset the page number when sort field changes
   };
 
   return (
     <>
       <div className="flex items-center justify-between mb-4">
-        <div className='flex'>
+        <div className="flex">
           <div className="relative">
             {/* Sort Dropdown */}
-              <select
-              className="text-sm block w-full bg-gray-800 border border-gray-700 text-gray-300 py-2 px-4 pr-8 rounded-lg appearance-none focus:outline-none"
-              value={type === 'user_drafts' ? 'New' : sortField}
+            <select
+              className="text-sm block w-full primary border border-gray-700 text-gray-100 py-2 px-4 pr-8 rounded-lg appearance-none focus:outline-none"
+              value={type === "user_drafts" ? "New" : sortField}
               onChange={handleSortChange}
-              disabled={type === 'user_drafts'}
+              disabled={type === "user_drafts"}
             >
               <option value="createdAt">New</option>
               <option value="likes">Likes</option>
@@ -154,27 +163,33 @@ const PostsList = ({ sourceId, type }) => {
 
           {/* Sort Order Button */}
           <button
-            className='ml-2 flex items-center p-2 border border-gray-700 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-600 transition'
+            className="ml-2 flex items-center p-2 border border-gray-700 rounded-lg primary text-gray-100 hover:bg-gray-600 transition"
             onClick={toggleSortOrder}
-            disabled={type === 'user_drafts'}
+            disabled={type === "user_drafts"}
             aria-label="Toggle sort order"
           >
-            <span className="text-sm">{sortOrder === 'asc' ? <FontAwesomeIcon icon={faArrowUp} /> : <FontAwesomeIcon icon={faArrowDown}/>} </span>
+            <span className="text-sm">
+              {sortOrder === "asc" ? (
+                <FontAwesomeIcon icon={faArrowUp} />
+              ) : (
+                <FontAwesomeIcon icon={faArrowDown} />
+              )}{" "}
+            </span>
           </button>
         </div>
 
-        <div className='flex items-center justify-center'>
+        <div className="flex items-center justify-center">
           <button
             onClick={handleRefresh}
-            className='flex items-center p-2 border border-gray-700 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-600 transition'
-          >  
+            className="flex items-center p-2 border border-gray-700 rounded-lg primary text-gray-100 hover:bg-gray-600 transition"
+          >
             <FontAwesomeIcon icon={faArrowsRotate} />
           </button>
         </div>
       </div>
-        {posts.length > 0 ? (
-          posts.map(post =>
-            type === 'user_drafts' ? (
+      {posts.length > 0
+        ? posts.map((post) =>
+            type === "user_drafts" ? (
               <DraftPreview
                 post={post}
                 postId={post.id}
@@ -193,15 +208,17 @@ const PostsList = ({ sourceId, type }) => {
               />
             )
           )
-        ) : (
-          !loading && <p className="text-gray-500 text-center mt-8">No posts available.</p>
-        )}
+        : !loading && (
+            <p className="text-gray-500 text-center mt-8">
+              No posts available.
+            </p>
+          )}
 
-        {loading && 
-          <div className="flex justify-center items-center h-full">
-            <PuffLoader color="#5C6BC0" size={60} />
-          </div>
-        }
+      {loading && (
+        <div className="flex justify-center items-center h-full">
+          <PuffLoader color="#5C6BC0" size={60} />
+        </div>
+      )}
     </>
   );
 };
