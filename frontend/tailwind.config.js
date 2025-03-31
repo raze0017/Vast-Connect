@@ -8,7 +8,7 @@ export default {
       keyframes: {
         pulse: {
           "0%": { transform: "scale(1)" },
-          "50%": { transform: "scale(1.2)" },
+          "50%": { transform: "scale(1.5)" },
           "100%": { transform: "scale(1)" },
         },
       },
