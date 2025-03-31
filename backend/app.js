@@ -39,18 +39,13 @@ const FRONTEND_URL =
 // Configure CORS
 app.use(
   cors({
-    origin: FRONTEND_URL, // Allow requests from this origin
-    methods: ["GET", "POST", "PUT", "DELETE"], // Adjust based on your needs
-    credentials: true, // Allow credentials
+    origin: FRONTEND_URL,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // Must match frontend requests with { credentials: "include" }
   })
 );
 
 console.log("using frontendurl:", FRONTEND_URL);
-
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", FRONTEND_URL);
-  next();
-});
 
 app.use(express.json()); // For JSON payloads
 app.use(express.urlencoded({ extended: true })); // For application/x-www-form-urlencoded form-data
