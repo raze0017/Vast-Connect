@@ -15,7 +15,7 @@ function ApplicantList() {
         }
 
         const response = await axios.get(
-          `http://localhost:5000/employers/${employerId}`
+          `${import.meta.env.VITE_API_BASE_URL}/employers/${employerId}`
         );
         setJobs(response.data); // Assuming API returns { jobs: [...] }
       } catch (err) {

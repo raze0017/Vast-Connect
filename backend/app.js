@@ -145,6 +145,21 @@ app.get("/users/:userId", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+//show applied jobs
+app.get("/applied-jobs", async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming user ID is available from auth middleware
+
+    // Fetch job IDs where the user has applied
+    const appliedJobs = await JobApplication.find({ userId }).distinct("jobId");
+
+    res.json({ appliedJobs });
+  } catch (error) {
+    console.error("Error fetching applied jobs:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 // Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack); // Log the error stack to the console
@@ -158,6 +173,33 @@ app.use((err, req, res, next) => {
     message: err.message || "Internal Server Error",
   });
 });
+app.get("/jobApplied", async (req, res) => {
+  try {
+    const { username } = req.query;
+    if (!username)
+      return res.status(400).json({ error: "Username is required" });
+
+    // Find userId from username
+    const user = await prisma.user.findUnique({
+      where: { username },
+      select: { id: true },
+    });
+
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    // Fetch applied job IDs
+    const appliedJobs = await prisma.jobApplication.findMany({
+      where: { applicantId: user.id },
+      select: { jobId: true },
+    });
+
+    res.json({ appliedJobs: appliedJobs.map((app) => app.jobId) });
+  } catch (error) {
+    console.error("Error fetching applied jobs:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 app.use("/employers", employerRoutes); // Use the new route
 app.use("/apply", applicationRoutes);
 const port = process.env.PORT || 5000;

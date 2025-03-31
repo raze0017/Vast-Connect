@@ -8,15 +8,31 @@ const JobList = () => {
   const [appliedJobs, setAppliedJobs] = useState(new Set());
 
   useEffect(() => {
-    // Load applied jobs from localStorage
-    const storedAppliedJobs =
-      JSON.parse(localStorage.getItem("appliedJobs")) || [];
-    setAppliedJobs(new Set(storedAppliedJobs));
+    const fetchAppliedJobs = async () => {
+      const username = localStorage.getItem("username");
+      if (!username) return;
+
+      try {
+        const response = await axios.get(
+          `${
+            import.meta.env.VITE_API_BASE_URL
+          }/jobApplied?username=${username}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        setAppliedJobs(new Set(response.data.appliedJobs));
+      } catch (error) {
+        console.error("Error fetching applied jobs:", error);
+      }
+    };
 
     const fetchEmployerName = async (authorId) => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/users/${authorId}`,
+          `${import.meta.env.VITE_API_BASE_URL}/users/${authorId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -32,11 +48,14 @@ const JobList = () => {
 
     const fetchJobs = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/jobs`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/jobs`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         const jobsData = response.data?.jobs || response.data || [];
 
         const jobsWithEmployers = await Promise.all(
@@ -55,15 +74,17 @@ const JobList = () => {
       }
     };
 
+    fetchAppliedJobs();
     fetchJobs();
   }, []);
 
   const handleApply = async (jobId) => {
     const username = localStorage.getItem("username");
+    if (!username) return;
 
     try {
       await axios.post(
-        `http://localhost:5000/apply`,
+        `${import.meta.env.VITE_API_BASE_URL}/apply`,
         { jobId, username },
         {
           headers: {
@@ -71,16 +92,7 @@ const JobList = () => {
           },
         }
       );
-
-      // Update applied jobs state
-      setAppliedJobs((prev) => {
-        const newAppliedJobs = new Set([...prev, jobId]);
-        localStorage.setItem(
-          "appliedJobs",
-          JSON.stringify([...newAppliedJobs])
-        );
-        return newAppliedJobs;
-      });
+      setAppliedJobs((prev) => new Set([...prev, jobId]));
     } catch (error) {
       console.error("Error submitting application:", error);
     }
@@ -115,12 +127,7 @@ const JobList = () => {
                 </p>
                 <p className="text-gray-400">Posted by: {job.employerName}</p>
                 <button
-                  onClick={() =>
-                    handleApply(
-                      job.id || job._id,
-                      localStorage.getItem("username")
-                    )
-                  }
+                  onClick={() => handleApply(job.id || job._id)}
                   className={`mt-4 px-4 py-2 font-semibold rounded transition duration-300 ${
                     appliedJobs.has(job.id || job._id)
                       ? "bg-gray-500 cursor-not-allowed"
