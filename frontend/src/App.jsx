@@ -21,7 +21,7 @@ import Users from "./pages/Users";
 import PostForm from "./pages/PostForm";
 import RealmForm from "./pages/RealmForm";
 import Notifications from "./pages/Notifications";
-import JobList from "./pages/JobList";
+import JobList from "./pages/joblist";
 import { NotificationsProvider } from "./contexts/NotificationsContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
