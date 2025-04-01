@@ -5,8 +5,6 @@ Hosted Live at https://vast-connect.vercel.app/
 
 ## Features
 
-## Features
-
 ### User Authentication
 
 ![Signup Page](./img/signup.png)
