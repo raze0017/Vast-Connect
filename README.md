@@ -1,6 +1,7 @@
 #  Vast-Connect
 
 A **social media web application** designed specifically for college students to **connect, network, share job postings, and engage in discussions**. The platform enables students and faculty to interact, apply for internships, and collaborate on projects.
+Hosted Live at https://vast-connect.vercel.app/
 
 ## Features
 
